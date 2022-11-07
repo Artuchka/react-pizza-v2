@@ -5,6 +5,10 @@ import Categories from "./components/Categories.jsx"
 import Sort from "./components/Sort.jsx"
 import PizzaBlock from "./components/PizzaBlock.jsx"
 
+import pizzas from "./assets/pizzas.json"
+
+console.log(pizzas)
+
 function App() {
 	return (
 		<div className="wrapper">
@@ -17,9 +21,9 @@ function App() {
 					</div>
 					<h2 className="content__title">Все пиццы</h2>
 					<div className="content__items">
-						<PizzaBlock title="cheeseburger" price={222} />
-						<PizzaBlock title="cheeseburger" price={222} />
-						<PizzaBlock title="cheeseburger" price={222} />
+						{pizzas.pizzas.map((obj) => {
+							return <PizzaBlock key={obj.id} {...obj} />
+						})}
 					</div>
 				</div>
 			</div>

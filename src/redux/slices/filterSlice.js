@@ -4,7 +4,7 @@ const initialState = {
 	search: "",
 	categoryId: 0,
 	sortId: 0,
-	page: 0,
+	page: 1,
 	order: "asc",
 }
 

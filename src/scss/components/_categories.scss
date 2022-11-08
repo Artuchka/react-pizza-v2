@@ -2,7 +2,8 @@
 
 .categories {
 	@media (max-width: 700px) {
-		overflow: scroll;
+		overflow-x: scroll;
+
 		ul {
 			display: block;
 			width: 900px;

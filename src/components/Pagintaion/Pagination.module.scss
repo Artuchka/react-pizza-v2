@@ -1,0 +1,33 @@
+.root {
+	display: flex;
+	gap: 1rem;
+
+	li {
+		display: inline-block;
+		border-radius: 50%;
+
+		a {
+			display: inline-block;
+			border-radius: 50%;
+			width: 2rem;
+			height: 2rem;
+			text-align: center;
+			line-height: 2rem;
+			color: black;
+			border: 1px solid orange;
+
+			&:hover {
+				background-color: lighten(orange, 30);
+			}
+		}
+	}
+
+	:global {
+		.selected {
+			a {
+				background-color: orange;
+				color: white;
+			}
+		}
+	}
+}

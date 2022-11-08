@@ -5,12 +5,14 @@ import Sort from "../components/Sort"
 import PizzaBlock from "../components/PizzaBlock"
 import Skeleton from "../components/PizzaBlock/Skeleton"
 import Pagination from "../components/Pagintaion"
+import { SearchContext } from "../App"
 
 const apiurl = "https://6367caaed1d09a8fa61a9d57.mockapi.io/react-pizza-v2"
 
 const sortNames = ["rating", "price", "title"]
 
-function Home({ searchValue }) {
+function Home() {
+	const { searchValue } = React.useContext(SearchContext)
 	const [items, setItmes] = React.useState([])
 	const [isLoading, setIsLoading] = React.useState(true)
 	const [categoryIndex, setCategoryIndex] = React.useState(0)

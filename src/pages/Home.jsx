@@ -31,7 +31,6 @@ function Home() {
 		fetch(`${apiurl}?${pagination}${category}${sort}${orderParam}`)
 			.then((res) => res.json())
 			.then((jsoned) => {
-				console.log(jsoned)
 				setItmes(jsoned)
 			})
 			.catch((err) => {

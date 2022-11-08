@@ -1,12 +1,20 @@
 import React from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { setOrder, setSortId } from "../redux/slices/filterSlice"
 
-export default function Sort({ activeIndex, setActiveIndex, order, setOrder }) {
-	const sortNames = ["популярности", "цене", "алфавиту"]
+const sortNames = ["популярности", "цене", "алфавиту"]
+
+export default function Sort() {
+	const sortId = useSelector((state) => state.filters.sortId)
+	const order = useSelector((state) => state.filters.order)
+
+	const dispatch = useDispatch()
+
 	const [open, setOpen] = React.useState(false)
-	const sortName = sortNames[activeIndex]
+	const sortName = sortNames[sortId]
 
 	const handleSelectSort = (ind) => {
-		setActiveIndex(ind)
+		dispatch(setSortId(ind))
 		setOpen(false)
 	}
 
@@ -35,7 +43,7 @@ export default function Sort({ activeIndex, setActiveIndex, order, setOrder }) {
 						{sortNames.map((name, ind) => (
 							<li
 								key={ind}
-								className={activeIndex === ind ? "active" : ""}
+								className={sortId === ind ? "active" : ""}
 								onClick={() => handleSelectSort(ind)}
 							>
 								{name}
@@ -49,13 +57,13 @@ export default function Sort({ activeIndex, setActiveIndex, order, setOrder }) {
 				<div className="buttons-container">
 					<button
 						className={order == "asc" ? "active" : ""}
-						onClick={() => setOrder("asc")}
+						onClick={() => dispatch(setOrder("asc"))}
 					>
 						по возврастанию
 					</button>
 					<button
 						className={order == "desc" ? "active" : ""}
-						onClick={() => setOrder("desc")}
+						onClick={() => dispatch(setOrder("desc"))}
 					>
 						по убыванию
 					</button>

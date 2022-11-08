@@ -5,20 +5,24 @@ import Sort from "../components/Sort"
 import PizzaBlock from "../components/PizzaBlock"
 import Skeleton from "../components/PizzaBlock/Skeleton"
 import Pagination from "../components/Pagintaion"
-import { SearchContext } from "../App"
+
+import { useDispatch, useSelector } from "react-redux"
+import axios from "axios"
 
 const apiurl = "https://6367caaed1d09a8fa61a9d57.mockapi.io/react-pizza-v2"
 
 const sortNames = ["rating", "price", "title"]
 
 function Home() {
-	const { searchValue } = React.useContext(SearchContext)
+	const searchValue = useSelector((state) => state.filters.search)
+	const categoryIndex = useSelector((state) => state.filters.categoryId)
+	const sortIndex = useSelector((state) => state.filters.sortId)
+	const order = useSelector((state) => state.filters.order)
+	const page = useSelector((state) => state.filters.page)
+	const dispatch = useDispatch()
+
 	const [items, setItmes] = React.useState([])
 	const [isLoading, setIsLoading] = React.useState(true)
-	const [categoryIndex, setCategoryIndex] = React.useState(0)
-	const [sortIndex, setSortIndex] = React.useState(0)
-	const [order, setOrder] = React.useState("asc")
-	const [page, setPage] = React.useState(0)
 
 	React.useEffect(() => {
 		setIsLoading(true)
@@ -28,13 +32,15 @@ function Home() {
 		const search = searchValue ? `&search=${searchValue}` : ""
 		const pagination = `&limit=${4}&page=${page + 1}`
 
-		fetch(`${apiurl}?${pagination}${category}${sort}${orderParam}`)
-			.then((res) => res.json())
-			.then((jsoned) => {
-				setItmes(jsoned)
+		axios
+			.get(`${apiurl}?${pagination}${category}${sort}${orderParam}`)
+			.then(({ data }) => {
+				console.log(data)
+				setItmes(data)
 			})
 			.catch((err) => {
 				console.warn(err)
+				alert(err)
 			})
 			.finally(() => {
 				setIsLoading(false)
@@ -53,22 +59,14 @@ function Home() {
 	return (
 		<div className="container">
 			<div className="content__top">
-				<Categories
-					activeIndex={categoryIndex}
-					setActiveIndex={setCategoryIndex}
-				/>
-				<Sort
-					activeIndex={sortIndex}
-					setActiveIndex={setSortIndex}
-					order={order}
-					setOrder={setOrder}
-				/>
+				<Categories />
+				<Sort />
 			</div>
 			<h2 className="content__title">Все пиццы</h2>
 			<div className="content__items">
 				{isLoading ? skeletons : pizzaz}
 			</div>
-			<Pagination setPage={setPage} />
+			<Pagination />
 		</div>
 	)
 }

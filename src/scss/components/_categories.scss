@@ -1,9 +1,20 @@
 @import "../variables";
 
 .categories {
+	@media (max-width: 700px) {
+		overflow: scroll;
+		ul {
+			display: block;
+			width: 900px;
+			li {
+				display: inline-block;
+			}
+		}
+	}
 	ul {
 		display: flex;
-
+		flex-wrap: wrap;
+		row-gap: 1rem;
 		li {
 			background-color: #f9f9f9;
 			padding: 13px 30px;

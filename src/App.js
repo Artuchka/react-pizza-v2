@@ -7,8 +7,6 @@ import PizzaBlock from "./components/PizzaBlock.jsx"
 
 import pizzas from "./assets/pizzas.json"
 
-console.log(pizzas)
-
 function App() {
 	return (
 		<div className="wrapper">
@@ -16,7 +14,7 @@ function App() {
 			<div className="content">
 				<div className="container">
 					<div className="content__top">
-						<Categories />
+						{/* <Categories /> */}
 						<Sort />
 					</div>
 					<h2 className="content__title">Все пиццы</h2>

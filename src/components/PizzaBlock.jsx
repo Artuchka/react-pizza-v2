@@ -6,8 +6,8 @@ function PizzaBlock(props) {
 		name: title,
 		price,
 		imageUrl,
-		category,
 		rating,
+		category,
 		sizes,
 		types,
 	} = props
@@ -24,6 +24,7 @@ function PizzaBlock(props) {
 					{types.map((typeId) => {
 						return (
 							<li
+								key={typeId}
 								className={
 									typeId === activeType ? "active" : ""
 								}
@@ -37,6 +38,7 @@ function PizzaBlock(props) {
 				<ul>
 					{sizes.map((size, sizeIndex) => (
 						<li
+							key={sizeIndex}
 							className={sizeIndex === activeSize ? "active" : ""}
 							onClick={() => setActiveSize(sizeIndex)}
 						>

@@ -8,9 +8,7 @@ const categories = [
 	"Острые",
 	"Закрытые",
 ]
-export default function Categories() {
-	const [activeIndex, setActiveIndex] = useState(0)
-
+export default function Categories({ activeIndex, setActiveIndex }) {
 	return (
 		<div className="categories">
 			<ul>

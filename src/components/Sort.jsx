@@ -1,13 +1,12 @@
 import React from "react"
 
-export default function Sort() {
+export default function Sort({ activeIndex, setActiveIndex, order, setOrder }) {
 	const sortNames = ["популярности", "цене", "алфавиту"]
 	const [open, setOpen] = React.useState(false)
-	const [selected, setSelected] = React.useState(0)
-	const sortName = sortNames[selected]
+	const sortName = sortNames[activeIndex]
 
 	const handleSelectSort = (ind) => {
-		setSelected(ind)
+		setActiveIndex(ind)
 		setOpen(false)
 	}
 
@@ -36,7 +35,7 @@ export default function Sort() {
 						{sortNames.map((name, ind) => (
 							<li
 								key={ind}
-								className={selected === ind ? "active" : ""}
+								className={activeIndex === ind ? "active" : ""}
 								onClick={() => handleSelectSort(ind)}
 							>
 								{name}
@@ -45,6 +44,23 @@ export default function Sort() {
 					</ul>
 				</div>
 			)}
+			<div className="order__label">
+				<b>Порядок: </b>
+				<div className="buttons-container">
+					<button
+						className={order == "asc" ? "active" : ""}
+						onClick={() => setOrder("asc")}
+					>
+						по возврастанию
+					</button>
+					<button
+						className={order == "desc" ? "active" : ""}
+						onClick={() => setOrder("desc")}
+					>
+						по убыванию
+					</button>
+				</div>
+			</div>
 		</div>
 	)
 }

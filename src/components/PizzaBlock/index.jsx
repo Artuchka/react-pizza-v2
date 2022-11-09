@@ -1,4 +1,6 @@
 import React, { useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { addItem } from "../../redux/slices/cartSlice"
 
 function PizzaBlock(props) {
 	const {
@@ -14,6 +16,21 @@ function PizzaBlock(props) {
 	const typeNames = ["тонкая", "традиционная"]
 	const [activeType, setActiveType] = useState(0)
 	const [activeSize, setActiveSize] = useState(0)
+	const { cart } = useSelector((state) => state.cart)
+	const dispatch = useDispatch()
+
+	const handleAdd = () => {
+		const item = {
+			id,
+			title,
+			price,
+			imageUrl,
+			type: typeNames[activeType],
+			size: activeSize,
+		}
+
+		dispatch(addItem(item))
+	}
 
 	return (
 		<div className="pizza-block">
@@ -49,7 +66,10 @@ function PizzaBlock(props) {
 			</div>
 			<div className="pizza-block__bottom">
 				<div className="pizza-block__price">от {price} ₽</div>
-				<button className="button button--outline button--add">
+				<button
+					className="button button--outline button--add"
+					onClick={handleAdd}
+				>
 					<svg
 						width="12"
 						height="12"

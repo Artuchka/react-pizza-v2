@@ -73,7 +73,7 @@ function Home() {
 	}, [categoryIndex, sortIndex, order, page])
 
 	React.useEffect(() => {
-		//query string setting
+		//query string settingjjjjj
 		const queryString = qs.stringify({
 			categoryIndex,
 			sortIndex,

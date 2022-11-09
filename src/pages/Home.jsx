@@ -30,7 +30,7 @@ function Home() {
 		const sort = `&sortBy=${sortNames[sortIndex]}`
 		const orderParam = `&order=${order}`
 		const search = searchValue ? `&search=${searchValue}` : ""
-		const pagination = `&limit=${4}&page=${page + 1}`
+		const pagination = `&limit=${4}&page=${page}`
 
 		axios
 			.get(`${apiurl}?${pagination}${category}${sort}${orderParam}`)

@@ -31,10 +31,23 @@ export const filterSlice = createSlice({
 			console.log(action)
 			state.page = action.payload
 		},
+		setFilters(state, action) {
+			const { page, categoryIndex, sortIndex, order } = action.payload
+			state.page = page
+			state.categoryId = categoryIndex
+			state.sortId = sortIndex
+			state.order = order
+		},
 	},
 })
 
-export const { setSearch, setCategoryId, setSortId, setOrder, setPage } =
-	filterSlice.actions
+export const {
+	setSearch,
+	setCategoryId,
+	setSortId,
+	setOrder,
+	setPage,
+	setFilters,
+} = filterSlice.actions
 
 export default filterSlice.reducer

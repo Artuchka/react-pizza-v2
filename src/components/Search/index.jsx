@@ -1,13 +1,33 @@
-import React from "react"
+import React, { useCallback, useRef, useState } from "react"
 
 import styles from "./Search.module.scss"
 
 import { setSearch } from "../../redux/slices/filterSlice"
-import { useSelector, useDispatch } from "react-redux"
+import { useDispatch } from "react-redux"
+import debounce from "lodash.debounce"
 
 function Search() {
-	const searchValue = useSelector((state) => state.filters.search)
 	const dispatch = useDispatch()
+	const [value, setValue] = useState("")
+	const inputRef = useRef()
+
+	function handleClear() {
+		dispatch(setSearch(""))
+		setValue("")
+		inputRef.current.focus()
+	}
+	const updateSearchValue = useCallback(
+		debounce((str) => {
+			console.log(`FETCHING ${str}`)
+			dispatch(setSearch(str))
+		}, 300),
+		[]
+	)
+	function handleInput(e) {
+		setValue(e.target.value)
+		updateSearchValue(e.target.value)
+	}
+
 	return (
 		<div className={styles.root}>
 			<svg
@@ -26,20 +46,21 @@ function Search() {
 			</svg>
 
 			<input
+				ref={inputRef}
 				className={styles.input}
-				value={searchValue}
-				onChange={(e) => dispatch(setSearch(e.target.value))}
+				value={value}
+				onChange={handleInput}
 				placeholder="Search for pizza"
 			/>
 
-			{searchValue != "" && (
+			{value != "" && (
 				<svg
 					className={styles.closeIcon}
 					xmlns="http://www.w3.org/2000/svg"
 					fill="none"
 					viewBox="0 0 24 24"
 					strokeWidth={1.5}
-					onClick={() => dispatch(setSearch(""))}
+					onClick={handleClear}
 					stroke="currentColor"
 				>
 					<path

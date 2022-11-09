@@ -16,8 +16,9 @@ function Pagination() {
 				previousLabel="<"
 				nextLabel=">"
 				onPageChange={(e) => {
-					console.log(e.selected)
-					dispatch(setPage(e.selected + 1))
+					// console.log(typeof e.selected)
+					// console.log("setting page", e.selected + 1)
+					dispatch(setPage(parseInt(e.selected) + 1))
 				}}
 				pageRangeDisplayed={8}
 				pageCount={3}

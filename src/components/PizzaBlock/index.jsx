@@ -16,8 +16,13 @@ function PizzaBlock(props) {
 	const typeNames = ["тонкая", "традиционная"]
 	const [activeType, setActiveType] = useState(0)
 	const [activeSize, setActiveSize] = useState(0)
-	const { cart } = useSelector((state) => state.cart)
+	const { items } = useSelector((state) => state.cart)
 	const dispatch = useDispatch()
+
+	const countTry = items.find(
+		(obj) => obj.id == `${id}${activeType}${activeSize}`
+	)
+	const count = countTry ? countTry.count : 0
 
 	const handleAdd = () => {
 		const item = {
@@ -25,7 +30,7 @@ function PizzaBlock(props) {
 			title,
 			price,
 			imageUrl,
-			type: typeNames[activeType],
+			type: activeType,
 			size: activeSize,
 		}
 
@@ -83,7 +88,7 @@ function PizzaBlock(props) {
 						/>
 					</svg>
 					<span>Добавить</span>
-					<i>{0}</i>
+					{count > 0 ? <i>{count}</i> : null}
 				</button>
 			</div>
 		</div>

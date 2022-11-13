@@ -1,7 +1,7 @@
 import React from "react"
 import styles from "./NotFoundBlock.module.scss"
 
-export default function NotFoundBlock() {
+const NotFoundBlock = () => {
 	return (
 		<div className="container">
 			<div className={styles.root}>
@@ -18,3 +18,4 @@ export default function NotFoundBlock() {
 		</div>
 	)
 }
+export default NotFoundBlock

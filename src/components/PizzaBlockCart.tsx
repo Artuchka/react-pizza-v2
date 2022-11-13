@@ -1,9 +1,20 @@
 import React from "react"
+import { FC } from "react"
 import { useDispatch } from "react-redux"
 import { addCount, removeItem } from "../redux/slices/cartSlice"
-const typeNames = ["тонкая", "традиционная"]
+// const typeNames = ["тонкая", "традиционная"]
 
-function PizzaBlockCart(props) {
+type PizzaBlockCartProps = {
+	title: string
+	id: string
+	price: string
+	size: string
+	type: string
+	count: string
+	imageUrl: string
+}
+
+const PizzaBlockCart: FC<PizzaBlockCartProps> = (props) => {
 	const { title, id, price, size, type, count, imageUrl } = props
 	console.log(props)
 	const dispatch = useDispatch()

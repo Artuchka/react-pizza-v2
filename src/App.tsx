@@ -1,8 +1,8 @@
 import "./scss/app.scss"
 
-import React, { useEffect } from "react"
+import React from "react"
 
-import FullPizza from "./components/FullPizza.jsx"
+import FullPizza from "./components/FullPizza"
 import Home from "./pages/Home"
 import Cart from "./pages/Cart"
 import NotFound from "./pages/NotFound"

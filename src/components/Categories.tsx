@@ -1,4 +1,4 @@
-import { useState } from "react"
+import React from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { selectCategoryId, setCategoryId } from "../redux/slices/filterSlice"
 
@@ -10,7 +10,7 @@ const categories = [
 	"Острые",
 	"Закрытые",
 ]
-export default function Categories() {
+const Categories: React.FC = () => {
 	const categoryIndex = useSelector(selectCategoryId)
 	const dispatch = useDispatch()
 
@@ -32,3 +32,4 @@ export default function Categories() {
 		</div>
 	)
 }
+export default Categories

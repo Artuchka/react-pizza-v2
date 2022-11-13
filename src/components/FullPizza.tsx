@@ -5,19 +5,18 @@ import { useNavigate, useParams } from "react-router-dom"
 
 const apiurl = "https://6367caaed1d09a8fa61a9d57.mockapi.io/react-pizza-v2"
 
-function FullPizza() {
+const FullPizza: React.FC = () => {
 	const navigate = useNavigate()
-	const [data, setData] = useState({})
+	const [data, setData] = useState<{
+		name: string
+		price: number
+		imageUrl: string
+		rating: string
+		category: string
+		sizes: number[]
+		types: number[]
+	}>()
 	const { id } = useParams()
-	const {
-		name: title,
-		price,
-		imageUrl,
-		rating,
-		category,
-		sizes,
-		types,
-	} = data
 	React.useEffect(() => {
 		axios
 			.get(`${apiurl}/${id}`)
@@ -33,47 +32,21 @@ function FullPizza() {
 	}, [])
 
 	return (
-		<>
+		<div>
 			{isEmpty(data) ? (
 				<h2>Loading...</h2>
 			) : (
 				<div className="pizza-block">
 					<img
 						className="pizza-block__image"
-						src={imageUrl}
+						src={data.imageUrl}
 						alt="Pizza"
 					/>
-					<h4 className="pizza-block__title">{title}</h4>
-					<div className="pizza-block__selector">
-						<ul>
-							{/* {types.map((typeId) => {
-                    return (
-                        <li
-                            key={typeId}
-                            className={
-                                typeId === activeType ? "active" : ""
-                            }
-                            onClick={() => setActiveType(typeId)}
-                        >
-                            {typeNames[typeId]}
-                        </li>
-                    )
-                })} */}
-						</ul>
-						<ul>
-							{/* {sizes.map((size, sizeIndex) => (
-                    <li
-                        key={sizeIndex}
-                        className={sizeIndex === activeSize ? "active" : ""}
-                        onClick={() => setActiveSize(sizeIndex)}
-                    >
-                        {size} см.
-                    </li>
-                ))} */}
-						</ul>
-					</div>
+					<h4 className="pizza-block__title">{data.name}</h4>
 					<div className="pizza-block__bottom">
-						<div className="pizza-block__price">от {price} ₽</div>
+						<div className="pizza-block__price">
+							от {data.price} ₽
+						</div>
 						<button
 							className="button button--outline button--add"
 							// onClick={handleAdd}
@@ -96,7 +69,7 @@ function FullPizza() {
 					</div>
 				</div>
 			)}
-		</>
+		</div>
 	)
 }
 

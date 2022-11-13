@@ -1,4 +1,5 @@
 import React, { useRef } from "react"
+import { FC } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import {
 	selectOrder,
@@ -9,23 +10,23 @@ import {
 
 const sortNames = ["популярности", "цене", "алфавиту"]
 
-export default function Sort() {
+const Sort: FC = () => {
 	const sortId = useSelector(selectSortId)
 	const order = useSelector(selectOrder)
 
 	const dispatch = useDispatch()
 
-	const [open, setOpen] = React.useState(false)
+	const [open, setOpen] = React.useState<Boolean>(false)
 	const sortName = sortNames[sortId]
-	const sortRef = useRef()
+	const sortRef = useRef<HTMLDivElement>(null)
 
-	const handleSelectSort = (ind) => {
+	const handleSelectSort = (ind: any) => {
 		dispatch(setSortId(ind))
 		setOpen(false)
 	}
 
 	React.useEffect(() => {
-		const func = (e) => {
+		const func = (e: any) => {
 			if (!e.path.includes(sortRef.current)) {
 				setOpen(false)
 			}
@@ -90,3 +91,4 @@ export default function Sort() {
 		</div>
 	)
 }
+export default Sort

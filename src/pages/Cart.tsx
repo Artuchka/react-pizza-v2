@@ -5,7 +5,7 @@ import PizzaBlockCart from "../components/PizzaBlockCart"
 import EmptyCart from "../components/EmptyCart"
 import { clearItems, selectCart } from "../redux/slices/cartSlice"
 
-export default function Cart() {
+const Cart = () => {
 	const { items, totalCount, totalPrice } = useSelector(selectCart)
 	const dispatch = useDispatch()
 
@@ -95,7 +95,7 @@ export default function Cart() {
 					</div>
 				</div>
 				<div className="content__items">
-					{items.map((obj) => (
+					{items.map((obj: any) => (
 						<PizzaBlockCart key={obj.id} {...obj} />
 					))}
 				</div>
@@ -140,3 +140,4 @@ export default function Cart() {
 		</div>
 	)
 }
+export default Cart

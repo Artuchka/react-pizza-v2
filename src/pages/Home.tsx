@@ -18,12 +18,12 @@ import {
 } from "../redux/slices/filterSlice"
 import { fetchPizzas } from "../redux/slices/pizzaSlice"
 
-function Home() {
+const Home = () => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 
 	const categoryIndex = useSelector(selectCategoryId)
-	const { items, status } = useSelector((state) => state.pizza)
+	const { items, status } = useSelector((state: any) => state.pizza)
 
 	const sortIndex = useSelector(selectSortId)
 	const order = useSelector(selectOrder)
@@ -33,6 +33,7 @@ function Home() {
 	const isMounted = useRef(false)
 
 	const getPizzas = async () => {
+		//@ts-ignore
 		dispatch(fetchPizzas())
 	}
 
@@ -73,7 +74,7 @@ function Home() {
 		// .filter(({ name }) => {
 		// 	return name.toLowerCase().includes(searchValue.toLowerCase())
 		// })
-		.map((obj) => {
+		.map((obj: any) => {
 			return <PizzaBlock key={obj.id} {...obj} />
 		})
 	const skeletons = [...Array(6)].map((_, index) => <Skeleton key={index} />)

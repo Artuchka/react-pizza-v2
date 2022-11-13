@@ -9,12 +9,12 @@ import debounce from "lodash.debounce"
 function Search() {
 	const dispatch = useDispatch()
 	const [value, setValue] = useState("")
-	const inputRef = useRef()
+	const inputRef = useRef<HTMLInputElement>(null)
 
 	function handleClear() {
 		dispatch(setSearch(""))
 		setValue("")
-		inputRef.current.focus()
+		inputRef.current?.focus()
 	}
 	const updateSearchValue = useCallback(
 		debounce((str) => {
@@ -23,7 +23,7 @@ function Search() {
 		}, 300),
 		[]
 	)
-	function handleInput(e) {
+	function handleInput(e: any) {
 		setValue(e.target.value)
 		updateSearchValue(e.target.value)
 	}

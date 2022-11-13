@@ -1,32 +1,30 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
-import {
-	addItem,
-	selectCart,
-	selectCartItemById,
-} from "../../redux/slices/cartSlice"
+import { addItem, selectCartItemById } from "../../redux/slices/cartSlice"
 
-function PizzaBlock(props) {
-	const {
-		id,
-		name: title,
-		price,
-		imageUrl,
-		rating,
-		category,
-		sizes,
-		types,
-	} = props
+type PizzaBlockProps = {
+	id: string
+	name: string
+	price: string
+	imageUrl: string
+	rating: string
+	category: string
+	sizes: number[]
+	types: number[]
+}
+
+const PizzaBlock = (props: PizzaBlockProps) => {
+	const { id, name: title, price, imageUrl, sizes, types } = props
 	const typeNames = ["тонкая", "традиционная"]
-	const [activeType, setActiveType] = useState(0)
-	const [activeSize, setActiveSize] = useState(0)
+	const [activeType, setActiveType] = useState<number>(0)
+	const [activeSize, setActiveSize] = useState<number>(0)
 
 	const dispatch = useDispatch()
 
 	const counttry = useSelector(
 		selectCartItemById(id, activeType, activeSize)
-	).find((obj) => obj.id == `${id}${activeType}${activeSize}`)
+	).find((obj: any) => obj.id == `${id}${activeType}${activeSize}`)
 	const count = counttry ? counttry.count : 0
 
 	const handleAdd = () => {

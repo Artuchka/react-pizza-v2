@@ -5,7 +5,7 @@ import styles from "./Pagination.module.scss"
 import { useDispatch, useSelector } from "react-redux"
 import { selectPage, setPage } from "../../redux/slices/filterSlice"
 
-function Pagination() {
+const Pagination = () => {
 	const dispatch = useDispatch()
 	const page = useSelector(selectPage)
 	return (
@@ -22,7 +22,6 @@ function Pagination() {
 				pageRangeDisplayed={8}
 				pageCount={3}
 				forcePage={page - 1}
-				renderOnZeroPageCount={null}
 			/>
 		</>
 	)

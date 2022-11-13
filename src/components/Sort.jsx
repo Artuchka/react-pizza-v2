@@ -1,12 +1,17 @@
 import React, { useRef } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { setOrder, setSortId } from "../redux/slices/filterSlice"
+import {
+	selectOrder,
+	selectSortId,
+	setOrder,
+	setSortId,
+} from "../redux/slices/filterSlice"
 
 const sortNames = ["популярности", "цене", "алфавиту"]
 
 export default function Sort() {
-	const sortId = useSelector((state) => state.filters.sortId)
-	const order = useSelector((state) => state.filters.order)
+	const sortId = useSelector(selectSortId)
+	const order = useSelector(selectOrder)
 
 	const dispatch = useDispatch()
 

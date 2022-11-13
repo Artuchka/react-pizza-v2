@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { setCategoryId } from "../redux/slices/filterSlice"
+import { selectCategoryId, setCategoryId } from "../redux/slices/filterSlice"
 
 const categories = [
 	"Все",
@@ -11,7 +11,7 @@ const categories = [
 	"Закрытые",
 ]
 export default function Categories() {
-	const categoryIndex = useSelector((state) => state.filters.categoryId)
+	const categoryIndex = useSelector(selectCategoryId)
 	const dispatch = useDispatch()
 
 	return (

@@ -41,6 +41,11 @@ export const filterSlice = createSlice({
 	},
 })
 
+export const selectCategoryId = (state) => state.filters.categoryId
+export const selectOrder = (state) => state.filters.order
+export const selectSortId = (state) => state.filters.sortId
+export const selectPage = (state) => state.filters.page
+
 export const {
 	setSearch,
 	setCategoryId,

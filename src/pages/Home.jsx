@@ -9,42 +9,31 @@ import Pagination from "../components/Pagintaion"
 import { useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import qs from "qs"
-import { setFilters } from "../redux/slices/filterSlice"
+import {
+	selectCategoryId,
+	selectOrder,
+	selectPage,
+	selectSortId,
+	setFilters,
+} from "../redux/slices/filterSlice"
 import { fetchPizzas } from "../redux/slices/pizzaSlice"
-
-const sortNames = ["rating", "price", "title"]
 
 function Home() {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 
-	const searchValue = useSelector((state) => state.filters.search)
-	const categoryIndex = useSelector((state) => state.filters.categoryId)
+	const categoryIndex = useSelector(selectCategoryId)
 	const { items, status } = useSelector((state) => state.pizza)
 
-	const sortIndex = useSelector((state) => state.filters.sortId)
-	const order = useSelector((state) => state.filters.order)
-	const page = useSelector((state) => state.filters.page)
+	const sortIndex = useSelector(selectSortId)
+	const order = useSelector(selectOrder)
+	const page = useSelector(selectPage)
 
 	const hasCustomParams = useRef(false)
 	const isMounted = useRef(false)
 
 	const getPizzas = async () => {
-		const category = `&category=${categoryIndex == 0 ? "" : categoryIndex}`
-		const sort = `&sortBy=${sortNames[sortIndex]}`
-		const orderParam = `&order=${order}`
-		const search = searchValue ? `&search=${searchValue}` : ""
-		const pagination = `&limit=${4}&page=${page}`
-
-		dispatch(
-			fetchPizzas({
-				category,
-				sort,
-				orderParam,
-				search,
-				pagination,
-			})
-		)
+		dispatch(fetchPizzas())
 	}
 
 	React.useEffect(() => {

@@ -8,11 +8,9 @@ import Pagination from "../components/Pagintaion"
 
 import { useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
-import axios from "axios"
 import qs from "qs"
 import { setFilters } from "../redux/slices/filterSlice"
-
-const apiurl = "https://6367caaed1d09a8fa61a9d57.mockapi.io/react-pizza-v2"
+import { fetchPizzas } from "../redux/slices/pizzaSlice"
 
 const sortNames = ["rating", "price", "title"]
 
@@ -22,37 +20,31 @@ function Home() {
 
 	const searchValue = useSelector((state) => state.filters.search)
 	const categoryIndex = useSelector((state) => state.filters.categoryId)
+	const { items, status } = useSelector((state) => state.pizza)
+
 	const sortIndex = useSelector((state) => state.filters.sortId)
 	const order = useSelector((state) => state.filters.order)
 	const page = useSelector((state) => state.filters.page)
 
-	const [items, setItmes] = React.useState([])
-	const [isLoading, setIsLoading] = React.useState(true)
-
 	const hasCustomParams = useRef(false)
 	const isMounted = useRef(false)
 
-	const fetchPizza = () => {
-		setIsLoading(true)
+	const getPizzas = async () => {
 		const category = `&category=${categoryIndex == 0 ? "" : categoryIndex}`
 		const sort = `&sortBy=${sortNames[sortIndex]}`
 		const orderParam = `&order=${order}`
 		const search = searchValue ? `&search=${searchValue}` : ""
 		const pagination = `&limit=${4}&page=${page}`
 
-		axios
-			.get(`${apiurl}?${pagination}${category}${sort}${orderParam}`)
-			.then(({ data }) => {
-				console.log(data)
-				setItmes(data)
+		dispatch(
+			fetchPizzas({
+				category,
+				sort,
+				orderParam,
+				search,
+				pagination,
 			})
-			.catch((err) => {
-				console.warn(err)
-				alert(err)
-			})
-			.finally(() => {
-				setIsLoading(false)
-			})
+		)
 	}
 
 	React.useEffect(() => {
@@ -66,7 +58,7 @@ function Home() {
 	React.useEffect(() => {
 		// data fetching
 		if (!hasCustomParams.current) {
-			fetchPizza()
+			getPizzas()
 		}
 		hasCustomParams.current = false
 		window.scrollTo(0, 0)
@@ -89,9 +81,9 @@ function Home() {
 	}, [categoryIndex, sortIndex, order, page])
 
 	const pizzaz = items
-		.filter(({ name }) => {
-			return name.toLowerCase().includes(searchValue.toLowerCase())
-		})
+		// .filter(({ name }) => {
+		// 	return name.toLowerCase().includes(searchValue.toLowerCase())
+		// })
 		.map((obj) => {
 			return <PizzaBlock key={obj.id} {...obj} />
 		})
@@ -103,9 +95,18 @@ function Home() {
 				<Sort />
 			</div>
 			<h2 className="content__title">Все пиццы</h2>
-			<div className="content__items">
-				{isLoading ? skeletons : pizzaz}
-			</div>
+			{status == "error" ? (
+				<div className="content__error-info">
+					<h2>Произошла ошибка!!</h2>
+					<p>К сожалению не получили пиццы с сервака</p>
+					<p>Попробуйте повторить позже</p>
+				</div>
+			) : (
+				<div className="content__items">
+					{status == "loading" ? skeletons : pizzaz}
+				</div>
+			)}
+
 			<Pagination />
 		</div>
 	)

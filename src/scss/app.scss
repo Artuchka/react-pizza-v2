@@ -24,6 +24,10 @@ body {
 		margin: 35px 0;
 	}
 
+	&__error-info {
+		padding: 1rem;
+		text-align: center;
+	}
 	&__items {
 		display: grid;
 		row-gap: 1rem;

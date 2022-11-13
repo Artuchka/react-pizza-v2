@@ -70,10 +70,12 @@ export const cartSlice = createSlice({
 })
 
 export const selectCart = (state) => state.cart
-export const selectCartItemById = (id, activeType, activeSize) => (state) =>
-	state.cart.items.find(
-		(obj) => obj.id == getUniqueId({ id, activeType, activeSize })
-	)
+export const selectCartItemById = (id, activeType, activeSize) => (state) => {
+	// const found = state.cart.items.find(
+	// 	(obj) => obj.id == getUniqueId({ id, activeType, activeSize })
+	// )
+	return state.cart.items
+}
 
 export const { addItem, removeItem, clearItems, addCount } = cartSlice.actions
 

@@ -47,12 +47,10 @@ export const pizzaSlice = createSlice({
 			state.items = []
 		})
 		builder.addCase(fetchPizzas.fulfilled, (state, action) => {
-			console.log(action, "fullfill")
 			state.status = "success"
 			state.items = action.payload
 		})
 		builder.addCase(fetchPizzas.rejected, (state, action) => {
-			console.log(action, "reject")
 			state.status = "error"
 			state.items = []
 			console.log("ашибачка")

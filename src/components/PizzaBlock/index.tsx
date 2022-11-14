@@ -1,7 +1,8 @@
 import React, { useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import { addItem, selectCartItemById } from "../../redux/slices/cartSlice"
+import { useAppDispatch } from "../../redux/store"
 
 type PizzaBlockProps = {
 	id: string
@@ -20,7 +21,7 @@ const PizzaBlock = (props: PizzaBlockProps) => {
 	const [activeType, setActiveType] = useState<number>(0)
 	const [activeSize, setActiveSize] = useState<number>(0)
 
-	const dispatch = useDispatch()
+	const dispatch = useAppDispatch()
 
 	const counttry = useSelector(
 		selectCartItemById(id, activeType, activeSize)

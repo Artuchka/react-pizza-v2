@@ -7,7 +7,7 @@ import Skeleton from "../components/PizzaBlock/Skeleton"
 import Pagination from "../components/Pagintaion"
 
 import { useNavigate } from "react-router-dom"
-import { useDispatch, useSelector } from "react-redux"
+import { useSelector } from "react-redux"
 import { FilterSliceState } from "../redux/slices/filterSlice"
 import qs from "qs"
 import {
@@ -19,9 +19,10 @@ import {
 	setFilters,
 } from "../redux/slices/filterSlice"
 import { fetchPizzas } from "../redux/slices/pizzaSlice"
+import { useAppDispatch } from "../redux/store"
 
 const Home = () => {
-	const dispatch = useDispatch()
+	const dispatch = useAppDispatch()
 	const navigate = useNavigate()
 
 	const categoryIndex = useSelector(selectCategoryId)
@@ -35,7 +36,6 @@ const Home = () => {
 	const isMounted = useRef<boolean>(false)
 
 	const getPizzas = async () => {
-		//@ts-ignore
 		dispatch(fetchPizzas())
 	}
 

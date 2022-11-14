@@ -1,5 +1,5 @@
 import React from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useSelector } from "react-redux"
 import { selectCategoryId } from "../redux/slices/filterSlice"
 
 const categories = [
@@ -17,7 +17,6 @@ type CategoriesProps = {
 
 const Categories: React.FC<CategoriesProps> = ({ onChangeCategory }) => {
 	const categoryIndex = useSelector(selectCategoryId)
-	const dispatch = useDispatch()
 
 	return (
 		<div className="categories">

@@ -5,13 +5,14 @@ import React, {
 	useRef,
 } from "react"
 import { FC } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useSelector } from "react-redux"
 import {
 	selectOrder,
 	selectSortId,
 	setOrder,
 	setSortId,
 } from "../redux/slices/filterSlice"
+import { useAppDispatch } from "../redux/store"
 
 type PopupClick = MouseEvent & {
 	path: Node[]
@@ -23,7 +24,7 @@ const Sort: FC = () => {
 	const sortId = useSelector(selectSortId)
 	const order = useSelector(selectOrder)
 
-	const dispatch = useDispatch()
+	const dispatch = useAppDispatch()
 
 	const [open, setOpen] = React.useState<boolean>(false)
 	const sortName = sortNames[sortId]

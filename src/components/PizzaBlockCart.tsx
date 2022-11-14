@@ -1,7 +1,7 @@
 import React from "react"
 import { FC } from "react"
-import { useDispatch } from "react-redux"
 import { addCount, removeItem } from "../redux/slices/cartSlice"
+import { useAppDispatch } from "../redux/store"
 // const typeNames = ["тонкая", "традиционная"]
 
 type PizzaBlockCartProps = {
@@ -17,7 +17,7 @@ type PizzaBlockCartProps = {
 const PizzaBlockCart: FC<PizzaBlockCartProps> = (props) => {
 	const { title, id, price, size, type, count, imageUrl } = props
 	console.log(props)
-	const dispatch = useDispatch()
+	const dispatch = useAppDispatch()
 
 	const handleRemove = () => {
 		dispatch(removeItem(id))

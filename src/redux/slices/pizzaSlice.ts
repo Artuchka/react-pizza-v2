@@ -18,7 +18,7 @@ export const fetchPizzas = createAsyncThunk<
 	const sort = `&sortBy=${sortNames[sortId]}`
 	const orderParam = `&order=${order}`
 	// const searchParam = searchValue ? `&search=${searchValue}` : ""
-	const pagination: string = `&limit=${4}&page=${page}`
+	const pagination = `&limit=${4}&page=${page}`
 	const { data } = await axios.get<Pizza[]>(
 		`${apiurl}?${pagination}${category}${sort}${orderParam}`
 	)

@@ -8,6 +8,7 @@ import Pagination from "../components/Pagintaion"
 
 import { useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
+import { FilterSliceState } from "../redux/slices/filterSlice"
 import qs from "qs"
 import {
 	selectCategoryId,
@@ -40,7 +41,14 @@ const Home = () => {
 
 	React.useEffect(() => {
 		if (window.location.search) {
-			const params = qs.parse(window.location.search.replace("?", ""))
+			const paramsGot = qs.parse(window.location.search.replace("?", ""))
+			const params: FilterSliceState = {
+				search: "",
+				sortId: sortIndex,
+				categoryId: categoryIndex,
+				page: page,
+				order: order,
+			}
 			dispatch(setFilters(params))
 			hasCustomParams.current = true
 		}

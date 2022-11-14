@@ -1,4 +1,9 @@
-import React, { useRef } from "react"
+import React, {
+	EventHandler,
+	MouseEvent,
+	MouseEventHandler,
+	useRef,
+} from "react"
 import { FC } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import {
@@ -8,6 +13,10 @@ import {
 	setSortId,
 } from "../redux/slices/filterSlice"
 
+type PopupClick = MouseEvent & {
+	path: Node[]
+}
+
 const sortNames = ["популярности", "цене", "алфавиту"]
 
 const Sort: FC = () => {
@@ -16,24 +25,31 @@ const Sort: FC = () => {
 
 	const dispatch = useDispatch()
 
-	const [open, setOpen] = React.useState<Boolean>(false)
+	const [open, setOpen] = React.useState<boolean>(false)
 	const sortName = sortNames[sortId]
 	const sortRef = useRef<HTMLDivElement>(null)
 
-	const handleSelectSort = (ind: any) => {
+	const handleSelectSort = (ind: number) => {
 		dispatch(setSortId(ind))
 		setOpen(false)
 	}
 
 	React.useEffect(() => {
-		const func = (e: any) => {
-			if (!e.path.includes(sortRef.current)) {
+		const handleClickOutside = (event: MouseEvent) => {
+			const _ev = event as PopupClick
+			if (sortRef.current && !_ev.path.includes(sortRef.current)) {
 				setOpen(false)
 			}
 		}
-		document.body.addEventListener("click", func)
+		document.body.addEventListener("click", (e: Event) => {
+			const _ev = e as unknown as MouseEvent
+			handleClickOutside(_ev)
+		})
 		return () => {
-			document.body.removeEventListener("click", func)
+			document.body.removeEventListener("click", (e: Event) => {
+				const _ev = e as unknown as MouseEvent
+				handleClickOutside(_ev)
+			})
 		}
 	}, [])
 

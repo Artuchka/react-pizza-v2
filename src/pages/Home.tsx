@@ -14,6 +14,7 @@ import {
 	selectOrder,
 	selectPage,
 	selectSortId,
+	setCategoryId,
 	setFilters,
 } from "../redux/slices/filterSlice"
 import { fetchPizzas } from "../redux/slices/pizzaSlice"
@@ -29,8 +30,8 @@ const Home = () => {
 	const order = useSelector(selectOrder)
 	const page = useSelector(selectPage)
 
-	const hasCustomParams = useRef(false)
-	const isMounted = useRef(false)
+	const hasCustomParams = useRef<boolean>(false)
+	const isMounted = useRef<boolean>(false)
 
 	const getPizzas = async () => {
 		//@ts-ignore
@@ -78,10 +79,14 @@ const Home = () => {
 			return <PizzaBlock key={obj.id} {...obj} />
 		})
 	const skeletons = [...Array(6)].map((_, index) => <Skeleton key={index} />)
+
+	function onChangeCategory(index: number) {
+		dispatch(setCategoryId(index))
+	}
 	return (
 		<div className="container">
 			<div className="content__top">
-				<Categories />
+				<Categories onChangeCategory={onChangeCategory} />
 				<Sort />
 			</div>
 			<h2 className="content__title">Все пиццы</h2>

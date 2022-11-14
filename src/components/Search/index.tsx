@@ -8,7 +8,7 @@ import debounce from "lodash.debounce"
 
 function Search() {
 	const dispatch = useDispatch()
-	const [value, setValue] = useState("")
+	const [value, setValue] = useState<string>("")
 	const inputRef = useRef<HTMLInputElement>(null)
 
 	function handleClear() {
@@ -23,7 +23,7 @@ function Search() {
 		}, 300),
 		[]
 	)
-	function handleInput(e: any) {
+	function handleInput(e: React.ChangeEvent<HTMLInputElement>) {
 		setValue(e.target.value)
 		updateSearchValue(e.target.value)
 	}

@@ -1,6 +1,6 @@
 import React from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { selectCategoryId, setCategoryId } from "../redux/slices/filterSlice"
+import { selectCategoryId } from "../redux/slices/filterSlice"
 
 const categories = [
 	"Все",
@@ -10,7 +10,12 @@ const categories = [
 	"Острые",
 	"Закрытые",
 ]
-const Categories: React.FC = () => {
+
+type CategoriesProps = {
+	onChangeCategory: (idx: number) => void
+}
+
+const Categories: React.FC<CategoriesProps> = ({ onChangeCategory }) => {
 	const categoryIndex = useSelector(selectCategoryId)
 	const dispatch = useDispatch()
 
@@ -22,7 +27,9 @@ const Categories: React.FC = () => {
 						<li
 							key={index}
 							className={index == categoryIndex ? "active" : ""}
-							onClick={() => dispatch(setCategoryId(index))}
+							onClick={() => {
+								onChangeCategory(index)
+							}}
 						>
 							{cat}
 						</li>

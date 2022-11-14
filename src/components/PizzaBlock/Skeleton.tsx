@@ -1,7 +1,7 @@
 import React from "react"
 import ContentLoader from "react-content-loader"
 
-const Skeleton = (props: any) => (
+const Skeleton: React.FC = () => (
 	<ContentLoader
 		className="pizza-block"
 		speed={1}
@@ -10,7 +10,6 @@ const Skeleton = (props: any) => (
 		viewBox="0 0 400 460"
 		backgroundColor="#cc6228"
 		foregroundColor="#d3c3c0"
-		{...props}
 	>
 		<circle cx="102" cy="98" r="95" />
 		<rect x="38" y="211" rx="2" ry="2" width="140" height="10" />

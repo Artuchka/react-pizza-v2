@@ -1,7 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { RootState } from "../store"
 
-type CartItem = {
+import { getCartFromLS } from "../../utils/getCartFromLS"
+import { countTotalPrice } from "../../utils/countTotalPrice"
+import { countTotalCount } from "../../utils/countTotalCount"
+
+export type CartItem = {
 	title: string
 	id: string
 	price: number
@@ -17,10 +21,12 @@ interface CartSliceState {
 	items: CartItem[]
 }
 
+const { items, totalPrice, totalCount } = getCartFromLS()
+
 const initialState: CartSliceState = {
-	items: [],
-	totalPrice: 0,
-	totalCount: 0,
+	items,
+	totalPrice,
+	totalCount,
 }
 
 export const cartSlice = createSlice({
@@ -35,27 +41,16 @@ export const cartSlice = createSlice({
 			} else {
 				state.items.push({ ...action.payload, count: 1, id: uniqeId })
 			}
-			state.totalPrice = state.items.reduce(
-				(prev, obj) => prev + obj.price * obj.count,
-				0
-			)
-			state.totalCount = state.items.reduce(
-				(prev, obj) => prev + obj.count,
-				0
-			)
+
+			state.totalPrice = countTotalPrice(state.items)
+			state.totalCount = countTotalCount(state.items)
 		},
 
 		removeItem(state, action) {
 			state.items = state.items.filter((obj) => obj.id != action.payload)
 
-			state.totalPrice = state.items.reduce(
-				(prev, obj) => prev + obj.price * obj.count,
-				0
-			)
-			state.totalCount = state.items.reduce(
-				(prev, obj) => prev + obj.count,
-				0
-			)
+			state.totalPrice = countTotalPrice(state.items)
+			state.totalCount = countTotalCount(state.items)
 		},
 
 		addCount(state, action) {
@@ -69,14 +64,8 @@ export const cartSlice = createSlice({
 				state.items = state.items.filter((obj) => obj.id != id)
 			}
 
-			state.totalPrice = state.items.reduce(
-				(prev, obj) => prev + obj.price * obj.count,
-				0
-			)
-			state.totalCount = state.items.reduce(
-				(prev, obj) => prev + obj.count,
-				0
-			)
+			state.totalPrice = countTotalPrice(state.items)
+			state.totalCount = countTotalCount(state.items)
 		},
 		clearItems(state) {
 			state.items = []

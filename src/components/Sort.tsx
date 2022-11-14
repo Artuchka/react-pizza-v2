@@ -6,12 +6,8 @@ import React, {
 } from "react"
 import { FC } from "react"
 import { useSelector } from "react-redux"
-import {
-	selectOrder,
-	selectSortId,
-	setOrder,
-	setSortId,
-} from "../redux/slices/filterSlice"
+import { selectOrder, selectSortId } from "../redux/filter/selectors"
+import { setOrder, setSortId } from "../redux/filter/slice"
 import { useAppDispatch } from "../redux/store"
 
 type PopupClick = MouseEvent & {

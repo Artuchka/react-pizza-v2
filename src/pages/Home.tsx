@@ -8,18 +8,17 @@ import Pagination from "../components/Pagintaion"
 
 import { useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux"
-import { FilterSliceState } from "../redux/slices/filterSlice"
 import qs from "qs"
+import { useAppDispatch } from "../redux/store"
 import {
 	selectCategoryId,
 	selectOrder,
 	selectPage,
 	selectSortId,
-	setCategoryId,
-	setFilters,
-} from "../redux/slices/filterSlice"
-import { fetchPizzas } from "../redux/slices/pizzaSlice"
-import { useAppDispatch } from "../redux/store"
+} from "../redux/filter/selectors"
+import { fetchPizzas } from "../redux/pizza/asyncActions"
+import { FilterSliceState } from "../redux/filter/types"
+import { setCategoryId, setFilters } from "../redux/filter/slice"
 
 const Home = () => {
 	const dispatch = useAppDispatch()

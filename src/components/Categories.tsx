@@ -1,6 +1,6 @@
 import React from "react"
 import { useSelector } from "react-redux"
-import { selectCategoryId } from "../redux/slices/filterSlice"
+import { selectCategoryId } from "../redux/filter/selectors"
 
 const categories = [
 	"Все",

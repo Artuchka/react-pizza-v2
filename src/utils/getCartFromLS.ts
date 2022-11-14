@@ -1,4 +1,4 @@
-import { CartItem } from "../redux/slices/cartSlice"
+import { CartItem } from "../redux/slices/cart/types"
 import { countTotalCount } from "./countTotalCount"
 import { countTotalPrice } from "./countTotalPrice"
 

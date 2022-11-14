@@ -3,8 +3,9 @@ import ReactPaginate from "react-paginate"
 
 import styles from "./Pagination.module.scss"
 import { useSelector } from "react-redux"
-import { selectPage, setPage } from "../../redux/slices/filterSlice"
+import { setPage } from "../../redux/filter/slice"
 import { useAppDispatch } from "../../redux/store"
+import { selectPage } from "../../redux/filter/selectors"
 
 type Page = {
 	selected: number

@@ -1,6 +1,6 @@
 import React from "react"
 import { FC } from "react"
-import { addCount, removeItem } from "../redux/slices/cartSlice"
+import { addCount, removeItem } from "../redux/cart/slice"
 import { useAppDispatch } from "../redux/store"
 // const typeNames = ["тонкая", "традиционная"]
 

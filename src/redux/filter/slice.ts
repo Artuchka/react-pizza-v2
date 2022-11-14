@@ -1,13 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { RootState } from "../store"
-
-export interface FilterSliceState {
-	search: string
-	categoryId: number
-	sortId: number
-	page: number
-	order: string
-}
+import { FilterSliceState } from "./types"
 
 const initialState: FilterSliceState = {
 	search: "",
@@ -49,11 +41,6 @@ export const filterSlice = createSlice({
 		},
 	},
 })
-
-export const selectCategoryId = (state: RootState) => state.filters.categoryId
-export const selectOrder = (state: RootState) => state.filters.order
-export const selectSortId = (state: RootState) => state.filters.sortId
-export const selectPage = (state: RootState) => state.filters.page
 
 export const {
 	setSearch,
